@@ -6,6 +6,7 @@ import NotFound from "./screens/NotFound";
 import NavBar from "./components/NavBar";
 import Location from "./screens/Locations";
 import Searchs from "./screens/Searchs";
+import Detail from "./screens/Detail";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/categorys/:status" element={<Category/>}/>
         <Route path="/locations" element={<Location/>}/>
         <Route path="/searchs/:query" element={<Searchs/>}/>
+        <Route path="/detail/:characterId" element={<Detail/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>
