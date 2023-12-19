@@ -6,9 +6,12 @@ function Searchs() {
   const {query} = useParams();
   const [characters, setCharacters] = useState([]);
   const[error,setError] = useState(null);
+
+  const abortController = new AbortController();
+  const signal = abortController.signal;
   useEffect(() => {
     setError(null);
-    fetch(`https://rickandmortyapi.com/api/character/?name=${query}`)
+    fetch(`https://rickandmortyapi.com/api/character/?name=${query}`,{signal})
       .then((res) => {
         if (!res.ok) {
             throw new Error('La búsqueda no ha devuelto resultados');
@@ -18,7 +21,7 @@ function Searchs() {
       .then((data) => setCharacters(data.results))
       .catch((err)=>setError(err.message))
 
-      console.log("Busqueda" + query)
+      return()=>abortController.abort();
   }, [query]);
   if (error) {
     return <div className="text-white">Error: {error}</div>;
