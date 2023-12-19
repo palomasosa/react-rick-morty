@@ -3,10 +3,11 @@ import Card from "../components/Card";
 import { useParams } from "react-router-dom";
 
 function Searchs() {
-    const {query} = useParams();
+  const {query} = useParams();
   const [characters, setCharacters] = useState([]);
   const[error,setError] = useState(null);
   useEffect(() => {
+    setError(null);
     fetch(`https://rickandmortyapi.com/api/character/?name=${query}`)
       .then((res) => {
         if (!res.ok) {
@@ -15,8 +16,13 @@ function Searchs() {
         return res.json();
      })
       .then((data) => setCharacters(data.results))
-      .catch((err)=>setError(err))
+      .catch((err)=>setError(err.message))
+
+      console.log("Busqueda" + query)
   }, [query]);
+  if (error) {
+    return <div className="text-white">Error: {error}</div>;
+}
   return (
     <div className="flex flex-wrap gap-6  mt-20">
       {error ? <p className="text-white">Ha ocurrido un error: {error.message}</p> : characters != null && characters.length > 0 ? (
