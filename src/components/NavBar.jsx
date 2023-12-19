@@ -17,7 +17,7 @@ function NavBar() {
                     </div>
                 </li>
                 <li><Link to={'/locations'} className="text-black">Locaciones</Link></li>
-                <li><Link to={'/detail/1'} className="text-black">Favoritos</Link></li>
+                <li><Link to={'/favorites'} className="text-black">Favoritos</Link></li>
                 <Searcher/>
             </ul>
         </nav>

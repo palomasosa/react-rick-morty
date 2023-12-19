@@ -5,10 +5,16 @@ import { useParams } from "react-router-dom"
 function Home() {
   const {status} = useParams();
   const [characters, setCharacters] = useState([]);
+
+  const abortController = new AbortController();
+  const signal = abortController.signal;
+
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/?status=${status}`)
+    fetch(`https://rickandmortyapi.com/api/character/?status=${status}`,{signal})
       .then((res) => res.json())
       .then((data) => setCharacters(data.results));
+
+      return()=>abortController.abort();
     }, [status]);
   return (
     <div className="flex flex-wrap gap-6  mt-20">

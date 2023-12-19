@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState , useContext} from "react";
 import { Link } from "react-router-dom";
+import FavoriteContext from "../context/FavoriteContext";
 
 function Card({id, name, species, location, status, imageUrl }) {
 
-  const [fav,setFav] = useState(false);
+  const { addFavorite, removeFavorite, isFavorite } = useContext(FavoriteContext);
+  const fav = isFavorite(id);
+
+  const handleFavs = ()=>{
+    fav ? removeFavorite(id) : addFavorite({id,name,species,location,status,imageUrl});
+  }
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure className="px-10 pt-10">
@@ -16,7 +22,7 @@ function Card({id, name, species, location, status, imageUrl }) {
         <p>Estado: {status}</p>
         <div >
           <button className="btn btn-outline btn-primary"><Link to={`/detail/${id}`}>Detalles</Link></button>
-          <button className="btn btn-primary ml-2.5" onClick={()=>{setFav(!fav)}}>{fav ? "🤍" : "🧡"}</button>
+          <button className="btn btn-primary ml-2.5" onClick={handleFavs}>{fav ? "🧡" : "🤍"}</button>
         </div>
       </div>
     </div>

@@ -7,20 +7,26 @@ import NavBar from "./components/NavBar";
 import Location from "./screens/Locations";
 import Searchs from "./screens/Searchs";
 import Detail from "./screens/Detail";
+import Favorites from "./screens/Favorites";
+import {FavoritesProvider} from "./context/FavoriteContext";
 
 function App() {
   return (
-    <BrowserRouter>
-    <NavBar/>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/categorys/:status" element={<Category/>}/>
-        <Route path="/locations" element={<Location/>}/>
-        <Route path="/searchs/:query" element={<Searchs/>}/>
-        <Route path="/detail/:characterId" element={<Detail/>}/>
-        <Route path="*" element={<NotFound/>}/>
-      </Routes>
-    </BrowserRouter>
+    <FavoritesProvider>
+      <BrowserRouter>
+          <NavBar/>
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/categorys/:status" element={<Category/>}/>
+              <Route path="/locations" element={<Location/>}/>
+              <Route path="/searchs/:query" element={<Searchs/>}/>
+              <Route path="/detail/:characterId" element={<Detail/>}/>
+              <Route path="/favorites" element={<Favorites/>}/>
+              <Route path="*" element={<NotFound/>}/>
+            </Routes>
+      </BrowserRouter>
+    </FavoritesProvider>
+   
   );
 }
 
